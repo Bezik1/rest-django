@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'api',
+    'corsheaders',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,11 +46,24 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    'http://localhost:3030',
 ]
 
 ROOT_URLCONF = 'rest_api.urls'
@@ -112,6 +126,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
